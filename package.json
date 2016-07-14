@@ -1,0 +1,22 @@
+{
+  "name": "proj2-trello",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:js": "npm run clean:js && webpack",
+    "watch:js": "npm run build:js && webpack --watch",
+    "clean:js": "rm -f build/$npm_package_name.$npm_package_version.js build/$npm_packge_name.$npm_package_version.js.map"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.11.1",
+    "chokidar-cli": "^1.2.0"
+  }
+}
