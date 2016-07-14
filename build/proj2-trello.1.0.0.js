@@ -49,8 +49,21 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(33);
 	
+	//  create three components for constructing a Trello-style interface.
+	// The Board component should consist of a number of List components,
+	// and the List component should contain a number of Cards.
+	
+	var Board = function Board() {
+	  var title = 'first board';
+	  return React.createElement(
+	    'div',
+	    { className: 'board' },
+	    title
+	  );
+	};
+	
 	document.addEventListener('DOMContentLoaded', function () {
-	  ReactDOM.render();
+	  ReactDOM.render(React.createElement(Board, null), document.getElementById('app'));
 	});
 
 /***/ },
