@@ -1,22 +1,35 @@
 .board {
-  background-color: #bc3c3c;
-  color: white;
-  margin: 20px;
-  display: inline-block;
-  padding: 10px 20px;
-}
-
-.lists {
-  display: block;
-  list-style: none;
-  margin: 20px;
+  margin: 50px auto;
+  width: 50%;
+  background-color: yellow;
+  border: .01em solid grey;
 }
 
 .list {
-  padding: 10px;
-  margin-bottom: .5em;
-  border: .01px solid grey;
-  width: 25%;
-  height: 205px;
-  overflow:scroll;
+  border: .01em solid red;
+  height: 80%;
+  width: 80%;
+  background-color: white;
+  text-align: center;
+}
+
+.card {
+  display: inline-block;
+  border: .001em solid grey;
+  height: 50%;
+  width: 50%;
+  list-style-type: none;
+  background-color: blue;
+}
+
+ .card-title {
+  display: block;
+  background-color: white;
+}
+
+.card-content {
+  display: block;
+  background-color: grey;
+  height: 40%;
+  width:40%;
 }
