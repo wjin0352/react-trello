@@ -5,6 +5,14 @@ var ReactDOM = require('react-dom');
 // The Board component should consist of a number of List components,
 // and the List component should contain a number of Cards.
 
+var Button = function(props) {
+  return (
+  <button onClick={props.onClick}>{props.text}</button>
+  )
+}
+
+
+
 var Card = function(props) {
   // A text prop which contains the content of the card
   var cardTitle = props.title;
@@ -18,20 +26,25 @@ var Card = function(props) {
   )
 }
 
-var List = function(props) {
-  // A title prop which contains the title of the list.
-  var title = props.title;
-  // A cards prop which contains the contents of the cards.
-  var cards = props.cards;
-
-  return (
-    <div className="list">
-      <Card title="card db setup" content="set up the mongo database"/>
-      <Card title="card node script setup" content="write npm scripts "/>
-      <Card title="card tests" content="write tests in mocha"/>
-    </div>
-  )
-}
+var List = React.createClass({
+  onAddInputChanged: function(data) {
+    console.log(data);
+  },
+  onAddClick: function(data) {
+    console.log(data);
+  },
+  render: function(props) {
+    return (
+      <div className="list">
+        <Card title="card db setup" content="set up the mongo database"/>
+        <Card title="card node script setup" content="write npm scripts "/>
+        <Card title="card tests" content="write tests in mocha"/>
+        <input onChange={this.onAddInputChanged}></input>
+        <Button onClick={this.onAddClick} text="some name"/>
+      </div>
+    )
+  }
+})
 
 var Board = function(props) {
   // A title prop which contains the title of the board
