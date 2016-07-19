@@ -5,19 +5,76 @@ var ReactDOM = require('react-dom');
 // The Board component should consist of a number of List components,
 // and the List component should contain a number of Cards.
 
-var Button = function(props) {
+var Board = function(props) {
+  // A title prop which contains the title of the board
+  var title = props.title;
+  // A lists prop which contains an array of the titles of the board's lists
+  var lists = props.lists;
+  // console.log(props.title)
+  // returns a list container:
   return (
-  <button onClick={props.onClick}>{props.text}</button>
+    <div className="board">
+      <ListContainer />
+    </div>
   )
 }
 
+var ListContainer = React.createClass ({
+  getInitialState: function() {
+    return {
+      title: "",
+      content: "",
+      cards: []
+    };
+  },
+  onAddInputChanged: function(data) {
+    this.setState({
+      title: data.target.value
+    })
+  },
+  onAddContentChanged: function(data) {
+    this.setState({
+      content: data.target.value
+    })
+  },
+  onAddClick: function(data) {
+    // we can refer this.state.title to just title now with the line below
+    var {title, content, cards} = this.state;
+    var card = {
+      // you can also just refer to below as just title if you want
+      title: title,
+      content: content
+    }
+    this.setState({
+      // declared in getInitialState
+      cards: [card].concat(cards)
+      // cards: [card, ...cards]
+    })
+  },
+  render: function() {
+    return (
+      <List
+        inputText={this.state.inputText}
+        cards={this.state.cards}
+        onAddInputChanged={this.onAddInputChanged}
+        onAddContentChanged={this.onAddContentChanged}
+        onAddClick={this.onAddClick}
+      />
+    );
+  }
+})
 
+var Button = function(props) {
+  return (
+    <button onClick={props.onClick}>{props.text}</button>
+  )
+}
 
 var Card = function(props) {
   // A text prop which contains the content of the card
   var cardTitle = props.title;
   var content = props.content;
-
+  // returns a card
   return (
     <div className="card">
       <li className="card-title">{props.title}</li>
@@ -26,37 +83,24 @@ var Card = function(props) {
   )
 }
 
-var List = React.createClass({
-  onAddInputChanged: function(data) {
-    console.log(data);
-  },
-  onAddClick: function(data) {
-    console.log(data);
-  },
-  render: function(props) {
-    return (
-      <div className="list">
-        <Card title="card db setup" content="set up the mongo database"/>
-        <Card title="card node script setup" content="write npm scripts "/>
-        <Card title="card tests" content="write tests in mocha"/>
-        <input onChange={this.onAddInputChanged}></input>
-        <Button onClick={this.onAddClick} text="some name"/>
-      </div>
-    )
-  }
-})
+var List = function(props) {
+  // returns many cards on a list
+  var cardElements = props.cards.map(function(card) {
+    return <Card title={card.title} content={card.content} key={card.title} />
+  })
 
-var Board = function(props) {
-  // A title prop which contains the title of the board
-  var title = props.title;
-  // A lists prop which contains an array of the titles of the board's lists
-  var lists = props.lists;
-  // console.log(props.title)
   return (
-    <div className="board">
-      <List listTitle={props.lists[0]}/>
-      <List listTitle={props.lists[1]}/>
-      <List listTitle={props.lists[2]}/>
+    <div className="list">
+      {cardElements}
+      <div>
+        <div>
+          <input className="cardTitle" onChange={props.onAddInputChanged}></input>
+        </div>
+        <div>
+          <input className="cardContent" onChange={props.onAddContentChanged}></input>
+        </div>
+        <Button onClick={props.onAddClick} text="done"/>
+      </div>
     </div>
   )
 }
